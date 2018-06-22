@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -44,8 +45,38 @@ class HomeController extends Controller
         //echo $req->email;
         //echo $req->input('email');
         
-        echo $req->input('username','huong');
-        
+        //echo $req->input('username','huong');
+
+        //fullname: required, min:10
+        //email: required, email
+        //password: required , min:6, max:50
+        //confirm_password: same:password
+        //
+
+        $rule = [
+            'fullname'=>'required|min:10',
+            'email'=>'required|email',
+            'password'=>'required|min:6|max:50',
+            'confirm_password'=>'same:password'
+        ];
+        $trans = [
+            'fullname.required' => 'Họ tên không được rỗng',
+            'fullname.min' => 'Họ tên ít nhất :min kí tự',
+            'confirm_password.same' => 'Mật khẩu không giống nhau'
+        ];
+        $validator = Validator::make($req->all(), $rule, $trans);
+
+        if($validator->fails()){
+            //return redirect()->route('register');
+            return redirect()->back()
+                            ->withErrors($validator)
+                            ->withInput();
+        }
+        dd($req->all());
     }
     
+
+    function getFormUpload(){
+        return view('user/upload');
+    }
 }

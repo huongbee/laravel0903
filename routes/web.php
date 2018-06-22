@@ -61,5 +61,8 @@ Route::get('welcome',"HomeController@getWelcomePage");
 //Route::any('register',"HomeController@getRegister");
 //Route::match(['get','post'],'register',"HomeController@getRegister");
 
-Route::get('register',"HomeController@getRegister");
-Route::post('register',"HomeController@postRegister");
+Route::get('register',"HomeController@getRegister")->name('register');
+Route::post('register',"HomeController@postRegister")->name('postregister');
+
+Route::get('upload',"HomeController@getFormUpload")->name('uploadfile');
+Route::post('upload',"HomeController@postFormUpload")->name('uploadfile');
