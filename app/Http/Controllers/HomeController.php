@@ -80,15 +80,34 @@ class HomeController extends Controller
         return view('user/upload');
     }
     function postFormUpload(Request $req){
+        // if($req->hasFile('image')){
+        //     $image = $req->file('image');
+        //     $name = $image->getClientOriginalName();
+        //     $size = $image->getClientSize();
+        //     $ext = $image->getClientOriginalExtension();
+        //     $type = $image->getClientMimeType();
+        //     //check file size
+        //     //file type
+        //     //rename
+        //     $image->move('my-image', $name);
+        //     return redirect()->back()->with('message','Upload thanh cong');
+        // }
+        // return redirect()->back()->with('message','Vui long chon file');
+
+        // multiple 
         if($req->hasFile('image')){
             $image = $req->file('image');
-            echo $name = $image->getClientOriginalName();
-            $size = $image->getClientSize();
-            $ext = $image->getClientOriginalExtension();
-            $type = $image->getClientMimeType();
-            
+            foreach($image as $i){
+                $name = $i->getClientOriginalName();
+                $size = $i->getClientSize();
+                $ext = $i->getClientOriginalExtension();
+                $type = $i->getClientMimeType();
+                
+                $i->move('my-image', $name);
+            }
+            return redirect()->back()->with('message','Upload thanh cong');
         }
-        else
-            return redirect()->back()->with('message','Vui long chon file');
+        return redirect()->back()->with('message','Vui long chon file');
+        // dd($image);
     }
 }
