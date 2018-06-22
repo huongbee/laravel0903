@@ -79,4 +79,16 @@ class HomeController extends Controller
     function getFormUpload(){
         return view('user/upload');
     }
+    function postFormUpload(Request $req){
+        if($req->hasFile('image')){
+            $image = $req->file('image');
+            echo $name = $image->getClientOriginalName();
+            $size = $image->getClientSize();
+            $ext = $image->getClientOriginalExtension();
+            $type = $image->getClientMimeType();
+            
+        }
+        else
+            return redirect()->back()->with('message','Vui long chon file');
+    }
 }
