@@ -110,4 +110,14 @@ class HomeController extends Controller
         return redirect()->back()->with('message','Vui long chon file');
         // dd($image);
     }
+
+    function getDetail(){
+        $name = 'Huong';
+        //$menu = 'Thong tin cua menu';
+        return view('admin.detail',compact('name','menu'));
+    }
+    function getAbout(){
+        //$menu = 'Thong tin cua menu';
+        return view('admin.about',compact('menu'));
+    }
 }

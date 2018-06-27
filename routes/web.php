@@ -66,3 +66,8 @@ Route::post('register',"HomeController@postRegister")->name('postregister');
 
 Route::get('upload',"HomeController@getFormUpload")->name('uploadfile');
 Route::post('upload',"HomeController@postFormUpload")->name('uploadfile');
+
+
+Route::get('about','HomeController@getAbout');
+Route::get('detail','HomeController@getDetail');
+
