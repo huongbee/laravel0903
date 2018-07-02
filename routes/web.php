@@ -71,3 +71,37 @@ Route::post('upload',"HomeController@postFormUpload")->name('uploadfile');
 Route::get('about','HomeController@getAbout');
 Route::get('detail','HomeController@getDetail');
 
+Route::get('schema',function(){
+    // Schema::create('products',function($table){
+    //     //id / name / price /description
+    //     $table->increments('id');
+    //     $table->string('name', 50);
+    //     $table->text('description');
+    //     $table->float('price');
+    //     $table->timestamps();
+    // });
+
+    //type : id, name, image, timestamps
+    // Schema::create('type',function($table){
+    //     $table->increments('id');
+    //     $table->string('name', 50);
+    //     $table->string('image');
+    //     $table->timestamps();
+    // });
+
+    // Schema::table('products',function($table){
+    //     $table->integer('id_type')->unsigned()->after('id');
+    // });
+    // Schema::table('products',function($table){
+    //     $table->foreign('id_type')->references('id')->on('type');
+    //});
+
+
+    //description -> detail
+    Schema::table('products',function($table){
+        $table->renameColumn('description','detail');
+    });
+
+    echo "success";
+});
+
