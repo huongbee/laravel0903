@@ -105,3 +105,5 @@ Route::get('schema',function(){
     echo "success";
 });
 
+
+Route::get('query-builder',"QueryBuilder@index");
