@@ -107,3 +107,4 @@ Route::get('schema',function(){
 
 
 Route::get('query-builder',"QueryBuilder@index");
+Route::get('eloquent',"Eloquent@index");

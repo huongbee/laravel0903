@@ -90,13 +90,46 @@ class QueryBuilder extends Controller
         //         ->get();
 
 
-        $data = DB::table('categories as c1')
-                ->select('c2.name as cap2', 'c1.name as cap1')
-                ->join('categories as c2','c2.id_parent','=','c1.id')
+        // $data = DB::table('categories as c1')
+        //         ->select('c2.name as cap2', 'c1.name as cap1')
+        //         ->join('categories as c2','c2.id_parent','=','c1.id')
+        //         ->where('c1.name','like','%Iphone%')
+        //         ->get();
+
+        // $data2 = DB::table('categories as c1')
+        //         ->select('c2.name as cap2', 'c1.name as cap1')
+        //         ->join('categories as c2',function($join){
+        //             $join->on('c2.id_parent','=','c1.id');
+        //             $join->where('c1.name','like','%Iphone%');
+        //         })->get();
+           
+        // dd($data2);
+
+        //thống kê sp theo loại 
+        /**
+         * iphone X:  6
+         * phu kien: 10
+         */
+
+        // SELECT c.name as tenloai, count(p.id) as soluong
+        // FROM categories as c
+        // INNER JOIN products as p
+        // ON c.id = p.id_type
+        // GROUP BY c.name
+
+        $data = DB::table('categories as c')
+                ->selectRaw('c.name as tenloai, count(p.id) as soluong')
+                ->join('products as p',function($join){
+                    $join->on('c.id','=','p.id_type');
+                })
+                ->groupBy('c.name')
                 ->get();
 
-        
-              
-        dd($data);
+        $data2 = DB::select('SELECT c.name as tenloai, count(p.id) as soluong
+                        FROM categories as c
+                        INNER JOIN products as p
+                        ON c.id = p.id_type
+                        GROUP BY c.name');
+        dd($data2);
     }
 }
