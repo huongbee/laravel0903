@@ -7,6 +7,7 @@ use App\Categories;
 use App\Slide;
 use App\PageUrl;
 use App\Products;
+use App\User;
 
 class Eloquent extends Controller
 {
@@ -86,14 +87,22 @@ class Eloquent extends Controller
         //     }
         // }
 
-        $categories = Categories::with('products','pageUrlCate','products.pageUrl')
-                        ->whereIn('id',[7,8,9])
-                        ->get();
-        // dd($categories);
-        foreach($categories as $c){
-            echo "<h3>".$c->name.": ".$c->pageUrlCate->url.":</h3>";
-            foreach($c->products as $products){
-                echo "- ".$products->name.": ".$products->pageUrl->url."<br>";
+        // $categories = Categories::with('products','pageUrlCate','products.pageUrl')
+        //                 ->whereIn('id',[7,8,9])
+        //                 ->get();
+        // // dd($categories);
+        // foreach($categories as $c){
+        //     echo "<h3>".$c->name.": ".$c->pageUrlCate->url.":</h3>";
+        //     foreach($c->products as $products){
+        //         echo "- ".$products->name.": ".$products->pageUrl->url."<br>";
+        //     }
+        // }
+
+        $users = User::with('role')->get();
+        foreach($users as $u){
+            echo "<h3>".$u->username."</h3>";
+            foreach($u->role as $role){
+                echo "<li>".$role->role."</li>"; //ten quyen
             }
         }
     }
