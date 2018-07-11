@@ -98,12 +98,46 @@ class Eloquent extends Controller
         //     }
         // }
 
-        $users = User::with('role')->get();
-        foreach($users as $u){
-            echo "<h3>".$u->username."</h3>";
-            foreach($u->role as $role){
-                echo "<li>".$role->role."</li>"; //ten quyen
-            }
+        // $users = User::with('role')->get();
+        // foreach($users as $u){
+        //     echo "<h3>".$u->username."</h3>";
+        //     foreach($u->role as $role){
+        //         echo "<li>".$role->role."</li>"; //ten quyen
+        //     }
+        // }
+
+        // $bills = \App\Bills::with('products')
+        //         ->where('total','>=',100000000)
+        //         ->get();
+        // foreach($bills as $b){
+        //     echo "<h3>Bill: ".$b->id."</h3>";
+        //     foreach($b->products as $product){
+        //         echo "<li>".$product->name."</li>"; //ten sp
+        //     }
+        // }
+        echo "<br>";
+        // $customer = \App\Customers::where('email','huongnguyenak96@gmail.com')
+        //             ->with('billDetails','billDetails.product','billDetails.product.categories')
+        //             ->first();
+        // echo "Khách hàng: ".$customer->name. " đã mua: ";
+        // echo "<br>";
+
+        // foreach($customer->billDetails as $detail){
+        //     echo $detail->id_product;
+        //     echo " - ";
+        //     echo $detail->product->name;
+        //     echo " - ";
+        //     echo $detail->product->categories->name;
+        //     echo "<br>";
+        // }
+        $product = Products::where('id',7)
+                    ->with('bills','bills.customer')
+                    ->first();
+        echo "Sản phẩm: ".$product->name. " có những KH mua: ";
+        echo "<br>";
+        foreach($product->bills as $bill){
+            echo $bill->customer->name;
+            echo "<br>";
         }
     }
 
